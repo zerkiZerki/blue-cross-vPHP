@@ -10,7 +10,7 @@
 	unset($_SESSION['users']);
 
 	$_SESSION['users']['valid'] = 'false';
-	$_SESSION['message'] = '<p>See you again soon!</p><hr>';
+	$_SESSION['message'] = '<p>Uspješno ste se odjavili!</p><hr>';
 	
 	header("Location: index.php?menu=1");
 	exit;

@@ -3,15 +3,8 @@ print'
 <h1>Radna subota u Blue Crossu</h1>
 <figure>
     <img src="img//pavanje.jpg" width="500" height="350" alt="Spavanje" title="Spavanje">
-    <figcaption ><i>Danas se išlo ranije spavati</i></figcaption>
+    <figcaption ><i>Slika 1</i></figcaption>
 </figure>
-<p>Danas je bio dan ispunjen smijehom, radom i dobrim društvom. Na našoj farmici su se pojavili volonteri iz Zagreba!</p>
-<p>Osim hrane za životinjice, pomogli su nam očistiti dvorište te ubrati plodove iz voćnjaka i vrta.</p>
-<p>Nakon posla i okrijepe hranom, proveli su u ugodnom društvu naših malih stanovnika. <br> Zahvaljujemo ekipi i dođite nam opet!</p>
-<p>Social media:<br>
-		<a href="https://www.linkedin.com/in/tim-berners-lee-b41808ab/" target="_blank"><img src="img/linkedin.svg" alt="Linkedin" title="Linkedin" style="width:24px; margin-top:0.4em"></a>
-		<a href="https://twitter.com/timberners_lee" target="_blank"><img src="img/twitter.svg" alt="Twitter" title="Twitter" style="width:24px; margin-top:0.4em"></a>
-		<a href="https://plus.google.com/113372414904624897851" target="_blank"><img src="img/google+.svg" alt="Google+" title="Google+" style="width:24px; margin-top:0.4em"></a>
-	</p>
+<p>"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"</p>
 ';
 ?>

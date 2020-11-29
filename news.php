@@ -15,7 +15,7 @@
 			</div>';
 	}
 	else {
-		print '<h1>NEWS</h1>';
+		print '<h1>VIJESTI</h1>';
 		$query  = "SELECT * FROM news";
 		$query .= " WHERE archive='N'";
 		$query .= " ORDER BY date DESC";

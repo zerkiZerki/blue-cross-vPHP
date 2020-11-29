@@ -30,7 +30,7 @@
         }
 		
 		
-		$_SESSION['message'] .= '<p>You successfully added news!</p>';
+		$_SESSION['message'] .= '<p>Uspješno ste dodali novi članak!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=2");
@@ -58,11 +58,11 @@
 				$_query  = "UPDATE news SET picture='" . $_picture . "'";
 				$_query .= " WHERE id=" . (int)$_POST['edit'] . " LIMIT 1";
 				$_result = @mysqli_query($MySQL, $_query);
-				$_SESSION['message'] .= '<p>You successfully added picture.</p>';
+				$_SESSION['message'] .= '<p>Uspješno ste dodali sliku.</p>';
 			}
         }
 		
-		$_SESSION['message'] = '<p>You successfully changed news!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste napravili izmjene!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=2");
@@ -85,7 +85,7 @@
 		$query .= " LIMIT 1";
 		$result = @mysqli_query($MySQL, $query);
 
-		$_SESSION['message'] = '<p>You successfully deleted news!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste obrisali vijesti!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=2");
@@ -109,32 +109,32 @@
 			<time datetime="' . $row['date'] . '">' . pickerDateToMysql($row['date']) . '</time>
 			<hr>
 		</div>
-		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Nazad</a></p>';
 	}
 	
 	#Add news 
 	else if (isset($_GET['add']) && $_GET['add'] != '') {
 		
 		print '
-		<h2>Add news</h2>
+		<h2>Dodaj članak</h2>
 		<form action="" id="news_form" name="news_form" method="POST" enctype="multipart/form-data">
 			<input type="hidden" id="_action_" name="_action_" value="add_news">
 			
-			<label for="title">Title *</label>
-			<input type="text" id="title" name="title" placeholder="News title.." required>
-			<label for="description">Description *</label>
-			<textarea id="description" name="description" placeholder="News description.." required></textarea>
+			<label for="title">Naslov *</label>
+			<input type="text" id="title" name="title" placeholder="Naslov.." required>
+			<label for="description">Tekst članka *</label>
+			<textarea id="description" name="description" placeholder="Dodajte tekst ovdje.." required></textarea>
 				
-			<label for="picture">Picture</label>
+			<label for="picture">Slika</label>
 			<input type="file" id="picture" name="picture">
 						
-			<label for="archive">Archive:</label><br />
+			<label for="archive">Arhiva:</label><br />
             <input type="radio" name="archive" value="Y"> YES &nbsp;&nbsp;
 			<input type="radio" name="archive" value="N" checked> NO
 			
 			<hr>
 			
-			<input type="submit" value="Submit">
+			<input type="submit" value="Spremi">
 		</form>
 		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
 	}
@@ -147,32 +147,32 @@
 		$checked_archive = false;
 
 		print '
-		<h2>Edit news</h2>
+		<h2>Uredi članak</h2>
 		<form action="" id="news_form_edit" name="news_form_edit" method="POST" enctype="multipart/form-data">
 			<input type="hidden" id="_action_" name="_action_" value="edit_news">
 			<input type="hidden" id="edit" name="edit" value="' . $row['id'] . '">
 			
-			<label for="title">Title *</label>
+			<label for="title">Naslov *</label>
 			<input type="text" id="title" name="title" value="' . $row['title'] . '" placeholder="News title.." required>
-			<label for="description">Description *</label>
+			<label for="description">Tekst članka *</label>
 			<textarea id="description" name="description" placeholder="News description.." required>' . $row['description'] . '</textarea>
 				
-			<label for="picture">Picture</label>
+			<label for="picture">Slika</label>
 			<input type="file" id="picture" name="picture">
 						
-			<label for="archive">Archive:</label><br />
+			<label for="archive">Arhivirati:</label><br />
             <input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> YES &nbsp;&nbsp;
 			<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> NO
 			
 			<hr>
 			
-			<input type="submit" value="Submit">
+			<input type="submit" value="Spremi izmjene">
 		</form>
-		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Nazad</a></p>';
 	}
 	else {
 		print '
-		<h2>News</h2>
+		<h2>Vijesti</h2>
 		<div id="news">
 			<table>
 				<thead>
@@ -180,9 +180,9 @@
 						<th width="16"></th>
 						<th width="16"></th>
 						<th width="16"></th>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Date</th>
+						<th>Naslov</th>
+						<th>Tekst</th>
+						<th>Datum</th>
 						<th width="16"></th>
 					</tr>
 				</thead>
@@ -216,7 +216,7 @@
 			print '
 				</tbody>
 			</table>
-			<a href="index.php?menu=' . $menu . '&amp;action=' . $action . '&amp;add=true" class="AddLink">Add news</a>
+			<a href="index.php?menu=' . $menu . '&amp;action=' . $action . '&amp;add=true" class="AddLink">Dodaj čklanak</a>
 		</div>';
 	}
 	

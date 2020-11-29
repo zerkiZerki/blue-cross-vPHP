@@ -1,6 +1,6 @@
 <?php 
 	print '
-	<h1>Sign In form</h1>
+	<h1>Prijava</h1>
 	<div id="signin">';
 	
 	if ($_POST['_action_'] == FALSE) {
@@ -13,7 +13,7 @@
 			<label for="password">Password:*</label>
 			<input type="password" id="password" name="password" value="" pattern=".{4,}" required>
 									
-			<input type="submit" value="Submit">
+			<input type="submit" value="Prijavi se">
 		</form>';
 	}
 	else if ($_POST['_action_'] == TRUE) {
@@ -29,7 +29,7 @@
 			$_SESSION['users']['id'] = $row['id'];
 			$_SESSION['users']['firstname'] = $row['firstname'];
 			$_SESSION['users']['lastname'] = $row['lastname'];
-			$_SESSION['message'] = '<p>Dobrodošli, ' . $_SESSION['users']['firstname'] . ' ' . $_SESSION['users']['lastname'] . '</p>';
+			$_SESSION['message'] = '<p>Dobrodošli, ' . $_SESSION['users']['firstname'] . ' ' . $_SESSION['users']['lastname'] . '!</p>';
 			# Redirect to admin website
 			header("Location: index.php?menu=7");
 		}
@@ -37,7 +37,7 @@
 		# Bad username or password
 		else {
 			unset($_SESSION['users']);
-			$_SESSION['message'] = '<p>You entered wrong email or password!</p>';
+			$_SESSION['message'] = '<p>Krivi e-mail ili lozinka!</p>';
 			header("Location: index.php?menu=6");
 		}
 	}

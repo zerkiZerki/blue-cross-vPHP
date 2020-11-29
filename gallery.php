@@ -1,6 +1,6 @@
 <?php 
 print'
-<h1>Gallery</h1>
+<h1>Galerija</h1>
 <div id="gallery">
     <figure id="1">
         <img src="gallery/10.jpg" alt="1" title="1">

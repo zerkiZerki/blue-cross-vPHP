@@ -9,7 +9,7 @@
 		# Close MySQL connection
 		@mysqli_close($MySQL);
 		
-		$_SESSION['message'] = '<p>You successfully changed user profile!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste izmijenili korisnički profil!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -24,7 +24,7 @@
 		$query .= " LIMIT 1";
 		$result = @mysqli_query($MySQL, $query);
 
-		$_SESSION['message'] = '<p>You successfully deleted user profile!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste obrisali profil!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -62,23 +62,23 @@
 			$checked_archive = false;
 			
 			print '
-			<h2>Edit user profile</h2>
+			<h2>Izmijeni</h2>
 			<form action="" id="registration_form" name="registration_form" method="POST">
 				<input type="hidden" id="_action_" name="_action_" value="TRUE">
 				<input type="hidden" id="edit" name="edit" value="' . $_GET['edit'] . '">
 				
-				<label for="fname">First Name *</label>
+				<label for="fname">Ime *</label>
 				<input type="text" id="fname" name="firstname" value="' . $row['firstname'] . '" placeholder="Your name.." required>
-				<label for="lname">Last Name *</label>
+				<label for="lname">Prezime *</label>
 				<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last natme.." required>
 					
-				<label for="email">Your E-mail *</label>
+				<label for="email">E-mail *</label>
 				<input type="email" id="email" name="email"  value="' . $row['email'] . '" placeholder="Your e-mail.." required>
 				
 				<label for="username">Username *<small>(Username must have min 5 and max 10 char)</small></label>
 				<input type="text" id="username" name="username" value="' . $row['username'] . '" pattern=".{5,10}" placeholder="Username.." required><br>
 				
-				<label for="country">Country</label>
+				<label for="country">Država</label>
 				<select name="country" id="country">
 					<option value="">molimo odaberite</option>';
 					#Select all countries from database webprog, table countries
@@ -92,15 +92,15 @@
 				print '
 				</select>
 				
-				<label for="archive">Archive:</label><br />
+				<label for="archive">Arhiva:</label><br />
 				<input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> YES &nbsp;&nbsp;
 				<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> NO
 				
 				<hr>
 				
-				<input type="submit" value="Submit">
+				<input type="submit" value="Pošalji">
 			</form>
-			<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+			<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Nazad</a></p>';
 		}
 		else {
 			print '<p>Zabranjeno</p>';
@@ -108,7 +108,7 @@
 	}
 	else {
 		print '
-		<h2>List of users</h2>
+		<h2>Lista korisnika</h2>
 		<div id="users">
 			<table>
 				<thead>
@@ -116,8 +116,8 @@
 						<th width="16"></th>
 						<th width="16"></th>
 						<th width="16"></th>
-						<th>First name</th>
-						<th>Last name</th>
+						<th>Ime</th>
+						<th>Prezime</th>
 						<th>E mail</th>
 						<th>Država</th>
 						<th width="16"></th>

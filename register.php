@@ -1,6 +1,6 @@
 <?php 
 	print '
-	<h1>Registration Form</h1>
+	<h1>Registracija</h1>
 	<div id="register">';
 	
 	if ($_POST['_action_'] == FALSE) {
@@ -8,12 +8,12 @@
 		<form action="" id="registration_form" name="registration_form" method="POST">
 			<input type="hidden" id="_action_" name="_action_" value="TRUE">
 			
-			<label for="fname">First Name *</label>
+			<label for="fname">Ime *</label>
 			<input type="text" id="fname" name="firstname" placeholder="Your name.." required>
-			<label for="lname">Last Name *</label>
+			<label for="lname">Prezime *</label>
 			<input type="text" id="lname" name="lastname" placeholder="Your last natme.." required>
 				
-			<label for="email">Your E-mail *</label>
+			<label for="email">E-mail *</label>
 			<input type="email" id="email" name="email" placeholder="Your e-mail.." required>
 			
 			<label for="username">Username:* <small>(Username must have min 5 and max 10 char)</small></label>
@@ -22,7 +22,7 @@
 									
 			<label for="password">Password:* <small>(Password must have min 4 char)</small></label>
 			<input type="password" id="password" name="password" placeholder="Password.." pattern=".{4,}" required>
-			<label for="country">Country:</label>
+			<label for="country">Država:</label>
 			<select name="country" id="country">
 				<option value="">molimo odaberite</option>';
 				#Select all countries from database webprog, table countries
@@ -33,7 +33,7 @@
 				}
 			print '
 			</select>
-			<input type="submit" value="Submit">
+			<input type="submit" value="Pošalji">
 		</form>';
 	}
 	else if ($_POST['_action_'] == TRUE) {
@@ -55,11 +55,11 @@
 			
 			# ucfirst() — Make a string's first character uppercase
 			# strtolower() - Make a string lowercase
-			echo '<p>' . ucfirst(strtolower($_POST['firstname'])) . ' ' .  ucfirst(strtolower($_POST['lastname'])) . ', thank you for registration </p>
+			echo '<p>' . ucfirst(strtolower($_POST['firstname'])) . ' ' .  ucfirst(strtolower($_POST['lastname'])) . ', hvala što ste se registrirali. </p>
 			<hr>';
 		}
 		else {
-			echo '<p>User with this email or username already exist!</p>';
+			echo '<p>Korisnik s ovom adresom već postoji u bazi.</p>';
 		}
 	}
 	print '
