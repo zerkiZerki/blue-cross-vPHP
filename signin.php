@@ -27,9 +27,11 @@
 			#password_verify https://secure.php.net/manual/en/function.password-verify.php
 			$_SESSION['users']['valid'] = 'true';
 			$_SESSION['users']['id'] = $row['id'];
+			# 1 - administrator; 2 - editor; 3 - user
+			$_SESSION['users']['role'] = $row['role'];
 			$_SESSION['users']['firstname'] = $row['firstname'];
 			$_SESSION['users']['lastname'] = $row['lastname'];
-			$_SESSION['message'] = '<p>Dobrodošli, ' . $_SESSION['users']['firstname'] . ' ' . $_SESSION['users']['lastname'] . '!</p>';
+			$_SESSION['message'] = '<p>Dobrodošli, ' . $_SESSION['users']['firstname'] . ' ' . $_SESSION['users']['lastname'] . '</p>';
 			# Redirect to admin website
 			header("Location: index.php?menu=7");
 		}

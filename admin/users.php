@@ -9,7 +9,7 @@
 		# Close MySQL connection
 		@mysqli_close($MySQL);
 		
-		$_SESSION['message'] = '<p>Uspješno ste izmijenili korisnički profil!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste unijeli izmjene!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -24,7 +24,7 @@
 		$query .= " LIMIT 1";
 		$result = @mysqli_query($MySQL, $query);
 
-		$_SESSION['message'] = '<p>Uspješno ste obrisali profil!</p>';
+		$_SESSION['message'] = '<p>Uspješno ste unijeli izmjene!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -39,7 +39,7 @@
 		$result = @mysqli_query($MySQL, $query);
 		$row = @mysqli_fetch_array($result);
 		print '
-		<h2>User profile</h2>
+		<h2>Korisnički profil</h2>
 		<p><b>First name:</b> ' . $row['firstname'] . '</p>
 		<p><b>Last name:</b> ' . $row['lastname'] . '</p>
 		<p><b>Username:</b> ' . $row['username'] . '</p>';
@@ -50,11 +50,11 @@
 		print '
 		<p><b>Country:</b> ' .$_row['country_name'] . '</p>
 		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>
-		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Natrag</a></p>';
 	}
 	#Edit user profile
 	else if (isset($_GET['edit']) && $_GET['edit'] != '') {
-		if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+		if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
 			$query  = "SELECT * FROM users";
 			$query .= " WHERE id=".$_GET['edit'];
 			$result = @mysqli_query($MySQL, $query);
@@ -62,7 +62,7 @@
 			$checked_archive = false;
 			
 			print '
-			<h2>Izmijeni</h2>
+			<h2>Uredi korisnički profil</h2>
 			<form action="" id="registration_form" name="registration_form" method="POST">
 				<input type="hidden" id="_action_" name="_action_" value="TRUE">
 				<input type="hidden" id="edit" name="edit" value="' . $_GET['edit'] . '">
@@ -70,12 +70,12 @@
 				<label for="fname">Ime *</label>
 				<input type="text" id="fname" name="firstname" value="' . $row['firstname'] . '" placeholder="Your name.." required>
 				<label for="lname">Prezime *</label>
-				<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last natme.." required>
+				<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last name.." required>
 					
 				<label for="email">E-mail *</label>
 				<input type="email" id="email" name="email"  value="' . $row['email'] . '" placeholder="Your e-mail.." required>
 				
-				<label for="username">Username *<small>(Username must have min 5 and max 10 char)</small></label>
+				<label for="username">Korisničko ime *<small>(Username must have min 5 and max 10 char)</small></label>
 				<input type="text" id="username" name="username" value="' . $row['username'] . '" pattern=".{5,10}" placeholder="Username.." required><br>
 				
 				<label for="country">Država</label>
@@ -92,15 +92,15 @@
 				print '
 				</select>
 				
-				<label for="archive">Arhiva:</label><br />
-				<input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> YES &nbsp;&nbsp;
-				<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> NO
+				<label for="archive">Arhiviraj:</label><br />
+				<input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> DA &nbsp;&nbsp;
+				<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> NE
 				
 				<hr>
 				
-				<input type="submit" value="Pošalji">
+				<input type="submit" value="Potvrdi">
 			</form>
-			<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Nazad</a></p>';
+			<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Natrag</a></p>';
 		}
 		else {
 			print '<p>Zabranjeno</p>';
@@ -108,7 +108,7 @@
 	}
 	else {
 		print '
-		<h2>Lista korisnika</h2>
+		<h2>Popis korisnika</h2>
 		<div id="users">
 			<table>
 				<thead>
