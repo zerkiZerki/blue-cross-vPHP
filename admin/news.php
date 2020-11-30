@@ -1,10 +1,10 @@
 <?php
 
-    if (!isset($_SESSION['user']['valid']) || $_SESSION['user']['valid'] == 'false'){
+    if (!isset($_SESSION['users']['valid']) || $_SESSION['users']['valid'] == 'false'){
         header("Location: index.php?menu=6");
 	}
 	
-    else if($_SESSION['user']['valid'] == 'true'){
+    else if($_SESSION['users']['valid'] == 'true'){
 		#Add news
 	if (isset($_POST['_action_']) && $_POST['_action_'] == 'add_news') {
 	
@@ -43,6 +43,7 @@
 		header("Location: index.php?menu=7&action=2");
 	}
         if (isset($_POST['edit']) && $_POST['_action_'] == 'TRUE') {
+			if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
             $query  = "UPDATE news SET title='" . $_POST['title'] . "', description='" . $_POST['article'] . "', picture='" . $_POST['picture'] . "'";
             $query .= " WHERE id=" . (int)$_POST['edit'];
             $query .= " LIMIT 1";
@@ -53,10 +54,15 @@
             $_SESSION['message'] = '<p>Uspjesno ste unijeli promjene!</p>';
             
             # Redirect
-            header("Location: index.php?menu=7&action=1");
-        }
+			header("Location: index.php?menu=7&action=1");
+		}else{
+			header("Location: index.php?menu=7&action=2");
+			print '<p>Zabranjeno</p>';
+			
+		}
+	}
         if (isset($_GET['delete']) && $_GET['delete'] != '') {
-            if ($_SESSION['user']['role'] == 1) {
+            if ($_SESSION['users']['role'] == 1) {
             $query  = "DELETE FROM news";
             $query .= " WHERE id=".(int)$_GET['delete'];
             $query .= " LIMIT 1";
@@ -75,7 +81,7 @@
 		}
 		#Add news 
 	else if (isset($_GET['add']) && $_GET['add'] != '') {
-		if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+		if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
 		
 		print '
 		<h2>Dodaj vijesti</h2>
@@ -108,7 +114,7 @@
 }
 
         else if (isset($_GET['edit']) && $_GET['edit'] != '') {
-            if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+            if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
                 $query  = "SELECT * FROM news";
                 $query .= " WHERE id=".$_GET['edit'];
                 $result = @mysqli_query($MySQL, $query);

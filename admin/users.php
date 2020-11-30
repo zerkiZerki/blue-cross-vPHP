@@ -54,7 +54,7 @@
 	}
 	#Edit user profile
 	else if (isset($_GET['edit']) && $_GET['edit'] != '') {
-		if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+		if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
 			$query  = "SELECT * FROM users";
 			$query .= " WHERE id=".$_GET['edit'];
 			$result = @mysqli_query($MySQL, $query);
@@ -93,7 +93,7 @@
 					</select>';
 					
 					
-					if ($_SESSION['user']['role'] == 1) {
+					if ($_SESSION['users']['role'] == 1) {
 						print'
 						<label for="country">Prava korisnika:</label>
 						<select name="role" class="form-control">
