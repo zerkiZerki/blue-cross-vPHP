@@ -150,12 +150,12 @@
 					<tr>
 						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="img/user.png" alt="user"></a></td>
 						<td>';
-							if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+							if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
 								print '<a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="img/edit.png" alt="uredi"></a></td>';
 							}
 						print '
 						<td>';
-							if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+							if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
 								print '<a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="img/delete.png" alt="obriÅ¡i"></a>';
 							}
 						print '	
