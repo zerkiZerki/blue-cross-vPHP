@@ -66,6 +66,9 @@ print '
 
 		# Admin webpage
 		else if ($menu == 7) { include("admin.php"); }
+
+		# Gallery
+		else if ($menu == 8) { include("gallery.php"); }
 	print '
 	</main>
 	<footer>

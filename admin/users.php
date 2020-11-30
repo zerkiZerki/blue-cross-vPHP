@@ -2,14 +2,14 @@
 	
 	# Update user profile
 	if (isset($_POST['edit']) && $_POST['_action_'] == 'TRUE') {
-		$query  = "UPDATE users SET firstname='" . $_POST['firstname'] . "', lastname='" . $_POST['lastname'] . "', email='" . $_POST['email'] . "', username='" . $_POST['username'] . "', country='" . $_POST['country'] . "', archive='" . $_POST['archive'] . "'";
+		$query  = "UPDATE users SET firstname='" . $_POST['firstname'] . "', lastname='" . $_POST['lastname'] . "', email='" . $_POST['email'] . "', username='" . $_POST['username'] . "', country='" . $_POST['country'] . "', archive='" . $_POST['archive'] . "', archive='" . $_POST['archive'] . "', role='" . $_POST['role'] . "'";
         $query .= " WHERE id=" . (int)$_POST['edit'];
         $query .= " LIMIT 1";
         $result = @mysqli_query($MySQL, $query);
 		# Close MySQL connection
 		@mysqli_close($MySQL);
 		
-		$_SESSION['message'] = '<p>Uspješno ste unijeli izmjene!</p>';
+		$_SESSION['message'] = '<p>Uspjesno ste promijenili korisnicki profil!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -24,7 +24,7 @@
 		$query .= " LIMIT 1";
 		$result = @mysqli_query($MySQL, $query);
 
-		$_SESSION['message'] = '<p>Uspješno ste unijeli izmjene!</p>';
+		$_SESSION['message'] = '<p>Uspjesno ste izbrisali korisnicki profil!</p>';
 		
 		# Redirect
 		header("Location: index.php?menu=7&action=1");
@@ -39,22 +39,22 @@
 		$result = @mysqli_query($MySQL, $query);
 		$row = @mysqli_fetch_array($result);
 		print '
-		<h2>Korisnički profil</h2>
-		<p><b>First name:</b> ' . $row['firstname'] . '</p>
-		<p><b>Last name:</b> ' . $row['lastname'] . '</p>
-		<p><b>Username:</b> ' . $row['username'] . '</p>';
+		<h2>Korisnicki profil</h2>
+		<p><b>Ime:</b> ' . $row['firstname'] . '</p>
+		<p><b>Prezime:</b> ' . $row['lastname'] . '</p>
+		<p><b>Korisnicko ime:</b> ' . $row['username'] . '</p>';
 		$_query  = "SELECT * FROM countries";
 		$_query .= " WHERE country_code='" . $row['country'] . "'";
 		$_result = @mysqli_query($MySQL, $_query);
 		$_row = @mysqli_fetch_array($_result);
 		print '
-		<p><b>Country:</b> ' .$_row['country_name'] . '</p>
-		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>
+		<p><b>Drzava:</b> ' .$_row['country_name'] . '</p>
+		<p><b>Datum:</b> ' . pickerDateToMysql($row['date']) . '</p>
 		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Natrag</a></p>';
 	}
 	#Edit user profile
 	else if (isset($_GET['edit']) && $_GET['edit'] != '') {
-		if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
+		if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
 			$query  = "SELECT * FROM users";
 			$query .= " WHERE id=".$_GET['edit'];
 			$result = @mysqli_query($MySQL, $query);
@@ -62,7 +62,7 @@
 			$checked_archive = false;
 			
 			print '
-			<h2>Uredi korisnički profil</h2>
+			<h2>Uredi korisnicki profil</h2>
 			<form action="" id="registration_form" name="registration_form" method="POST">
 				<input type="hidden" id="_action_" name="_action_" value="TRUE">
 				<input type="hidden" id="edit" name="edit" value="' . $_GET['edit'] . '">
@@ -70,15 +70,15 @@
 				<label for="fname">Ime *</label>
 				<input type="text" id="fname" name="firstname" value="' . $row['firstname'] . '" placeholder="Your name.." required>
 				<label for="lname">Prezime *</label>
-				<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last name.." required>
+				<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last natme.." required>
 					
 				<label for="email">E-mail *</label>
 				<input type="email" id="email" name="email"  value="' . $row['email'] . '" placeholder="Your e-mail.." required>
 				
-				<label for="username">Korisničko ime *<small>(Username must have min 5 and max 10 char)</small></label>
+				<label for="username">Korisnicko ime *<small>(Username must have min 5 and max 10 char)</small></label>
 				<input type="text" id="username" name="username" value="' . $row['username'] . '" pattern=".{5,10}" placeholder="Username.." required><br>
 				
-				<label for="country">Država</label>
+				<label for="country">Drzava:</label>
 				<select name="country" id="country">
 					<option value="">molimo odaberite</option>';
 					#Select all countries from database webprog, table countries
@@ -87,10 +87,29 @@
 					while($_row = @mysqli_fetch_array($_result)) {
 						print '<option value="' . $_row['country_code'] . '"';
 						if ($row['country'] == $_row['country_code']) { print ' selected'; }
-						print '>' . $_row['country_name'] . '</option>';
+						print '>' . $_row['country_name'] . '</option> ';
 					}
+					print '
+					</select>';
+					
+					
+					if ($_SESSION['user']['role'] == 1) {
+						print'
+						<label for="country">Prava korisnika:</label>
+						<select name="role" class="form-control">
+							<option value="">Odaberi prava korisnika</option>';
+							$_query  = "SELECT * FROM roles";
+							$_result = @mysqli_query($MySQL, $_query);
+							while($_row = @mysqli_fetch_array($_result)) {
+								print '<option value="' . $_row['id'] . '"';
+								if ($row['role'] == $_row['id']) { print ' selected'; }
+								print '>' . $_row['role'] . '</option>';
+							}
+							print '
+							</select>';
+						}
 				print '
-				</select>
+				
 				
 				<label for="archive">Arhiviraj:</label><br />
 				<input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> DA &nbsp;&nbsp;
@@ -119,7 +138,7 @@
 						<th>Ime</th>
 						<th>Prezime</th>
 						<th>E mail</th>
-						<th>Država</th>
+						<th>Drzava</th>
 						<th width="16"></th>
 					</tr>
 				</thead>
@@ -131,13 +150,13 @@
 					<tr>
 						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="img/user.png" alt="user"></a></td>
 						<td>';
-							if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
+							if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
 								print '<a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="img/edit.png" alt="uredi"></a></td>';
 							}
 						print '
 						<td>';
-							if ($_SESSION['users']['role'] == 1 || $_SESSION['users']['role'] == 2) {
-								print '<a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="img/delete.png" alt="obriši"></a>';
+							if ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2) {
+								print '<a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="img/delete.png" alt="obriÅ¡i"></a>';
 							}
 						print '	
 						</td>
